@@ -6,6 +6,8 @@ First, you should install the dependencies:
 yarn install
 ```
 
+Rename `.env.development` to `.env` and then,
+
 Run the development server:
 
 ```bash
