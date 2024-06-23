@@ -15,3 +15,6 @@ yarn dev
 ```
 
 Open http://localhost:3000 to see the result
+
+## Tech Stack
+![Alt Text](https://skillicons.dev/icons?i=js,express,postgres,prisma)
