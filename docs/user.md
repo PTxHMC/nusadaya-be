@@ -1,6 +1,6 @@
-# User Api Specification
+# User API Specification
 
-## Register User
+## Register User API
 
 **Endpoint** : POST `/api/users`
 
@@ -35,7 +35,7 @@
 }
 ```
 
-## Login User
+## Login User API
 
 **Endpoint** : POST `/api/users/login`
 
@@ -67,7 +67,7 @@
 }
 ```
 
-## Update User
+## Update User API
 
 **Endpoint** : PATCH `/api/users/current`
 
@@ -117,7 +117,7 @@
 }
 ```
 
-## Forget Password User
+## Forget Password User API
 
 **Endpoint** : POST `/api/users/password`
 
@@ -145,7 +145,7 @@
 }
 ```
 
-## Reset Password User
+## Reset Password User API
 
 **Endpoint** : PATCH `/api/users/password`
 
@@ -174,7 +174,7 @@
 }
 ```
 
-## Get Current User
+## Get Current User API
 
 **Endpoint** : GET `/api/users/current`
 
@@ -205,7 +205,7 @@
 }
 ```
 
-## Get User By Id
+## Get User By Id API
 
 **Endpoint** : GET `/api/users/{id}`
 
@@ -236,7 +236,7 @@
 }
 ```
 
-## Logout User
+## Logout User API
 
 **Endpoint** : DELETE /api/users/logout
 

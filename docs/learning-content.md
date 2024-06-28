@@ -1,6 +1,51 @@
-# Learning Content Api Specification
+# Learning Content API Specification
 
-## Create Learning Content
+**Content Field Structure**
+
+```json
+{
+  "content": {
+    "section": [
+      {
+        "type": "heading",
+        "value": "Kata Benda",
+        "attribute": {
+          "level": 1
+        },
+        "style": ["bold", "italic"]
+      },
+      {
+        "type": "text",
+        "value": "Kata benda dalam bahasa kaili biasanya...",
+        "attribute": {}
+      },
+      {
+        "type": "list",
+        "value": "",
+        "attribute": {
+          "item": ["kata-1", "kata-2", "kata-3"]
+        }
+      }
+    ]
+  }
+}
+```
+
+**Description Content**
+
+isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk isi kontennya akan berada didalam key ini, untuk gambaran bagaimana di Front-end nanti bisa lihat seperti notion, berikut penjelasannya:
+
+- **type** : `"heading"` | `"text"` | `"ordered-list"`, `"unordered-list"` | `"image"`
+- **value** : isi konten misalnya teks untuk heading
+- **attribute** : Berisi properti tambahan yang spesifik untuk setiap tipe konten
+  - `level` untuk heading
+  - `item` untuk list, yang isinya adalah array dari string
+  - `alt` untuk image, sebagai teks alternatif
+- **style** : Berisi style dari isi teksnya misal text kita mau kasi bold, style bisa berupa class tailwind
+
+<br>
+
+## Create Learning Content API
 
 **Endpoint** : POST `/api/learning-content`
 
@@ -39,23 +84,9 @@
     ]
   },
   "thumbnail": "file-image",
-  "id_user": "current-user"
+  "category": [1, 2, 3] // id category
 }
 ```
-
-**Description** :
-
-isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk isi kontennya akan berada didalam key ini, untuk gambaran bagaimana di Front-end nanti bisa lihat seperti notion, berikut penjelasannya:
-
-- **type** : `"heading"` | `"text"` | `"ordered-list"`, `"unordered-list"` | `"image"`
-- **value** : isi konten misalnya teks untuk heading
-- **attribute** : Berisi properti tambahan yang spesifik untuk setiap tipe konten
-  - `level` untuk heading
-  - `item` untuk list, yang isinya adalah array dari string
-  - `alt` untuk image, sebagai teks alternatif
-- **style** : Berisi style dari isi teksnya misal text kita mau kasi bold, style bisa berupa class tailwind
-
-<br>
 
 **Response Body Success** :
 
@@ -91,7 +122,9 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
       ]
     },
     "thumbnail": "file-image",
-    "id_user": "current-user"
+    "category": [1, 2, 3], // id category
+    "created_at": "2024-09-21",
+    "updated_at": "2024-09-21"
   }
 }
 ```
@@ -104,7 +137,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 }
 ```
 
-## Get All Learning Content
+## Get All Learning Content API
 
 **Endpoint** : GET `/api/learning-content` | `/api/learning-content?page={current-page}&limit={limit}`
 
@@ -125,14 +158,18 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
       "title": "Belajar Bahasa Kaili",
       "description": "Materi ini merupakan materi pembelajaran bahasa kaili",
       "thumbnail": "file-image",
-      "id_user": 1
+      "id_user": 1,
+      "category": [1, 2, 3], // id category
+      "created_at": "2024-09-21"
     },
     {
       "id": 2,
       "title": "Belajar Bahasa Bugis",
       "description": "Materi ini merupakan materi pembelajaran bahasa Bugis",
       "thumbnail": "file-image",
-      "id_user": 2
+      "id_user": 2,
+      "category": [1, 2, 3], // id category
+      "created_at": "2024-09-21",
     },
     ...
   ]
@@ -147,7 +184,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 }
 ```
 
-## Get Learning Content By Id
+## Get Learning Content By Id API
 
 **Endpoint** : GET `/api/learning-content/{id}`
 
@@ -185,7 +222,10 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
       ]
     },
     "thumbnail": "file-image",
-    "id_user": "current-user"
+    "id_user": "current-user",
+    "category": [1, 2, 3], // id category
+    "created_at": "2024-09-21",
+    "updated_at": "2024-09-21"
   }
 }
 ```
@@ -198,7 +238,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 }
 ```
 
-## Update Learning Content By Id
+## Update Learning Content By Id API
 
 **Endpoint** : PUT `/api/learning-content/{id}`
 
@@ -238,23 +278,9 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
     ]
   },
   "thumbnail": "file-image",
-  "id_user": "current-user"
+  "category": [1, 2, 3] // id category
 }
 ```
-
-**Description** :
-
-kurang lebih sama seperti [Create Learning Content API](#create-learning-content-api) :
-
-- **type** : `"heading"` | `"text"` | `"ordered-list"`, `"unordered-list"` | `"image"`
-- **value** : isi konten misalnya teks untuk heading
-- **attribute** : Berisi properti tambahan yang spesifik untuk setiap tipe konten
-  - `level` untuk heading
-  - `item` untuk list, yang isinya adalah array dari string
-  - `alt` untuk image, sebagai teks alternatif
-- **style** : Berisi style dari isi teksnya misal text kita mau kasi bold, style bisa berupa class tailwind
-
-<br>
 
 **Response Body Success** :
 
@@ -290,7 +316,9 @@ kurang lebih sama seperti [Create Learning Content API](#create-learning-content
       ]
     },
     "thumbnail": "file-image",
-    "id_user": "current-user"
+    "category": [1, 2, 3], // id category
+    "created_at": "2024-09-21",
+    "updated_at": "2024-09-25"
   }
 }
 ```
@@ -303,7 +331,7 @@ kurang lebih sama seperti [Create Learning Content API](#create-learning-content
 }
 ```
 
-## Delete Learning Content
+## Delete Learning Content API
 
 **Endpoint** : DELETE `/api/learning-content/{id}`
 
