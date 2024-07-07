@@ -81,7 +81,7 @@
 
 **Headers** :
 
-- Authorization : token
+- Authorization : Bearer token
 
 **Request Body** :
 
@@ -89,7 +89,7 @@
 {
   "full_name": "Muhammad Farhan Saleh", //Optional
   "gender": "laki-laki", //Optional
-  "profile_picture": "image-file" //Optional
+  "profile_picture": "image-file" //Optional use form-data to upload file
 }
 ```
 
@@ -101,7 +101,7 @@
   "data": {
     "full_name": "Muhammad Farhan Saleh",
     "gender": "laki-laki",
-    "profile_picture": "image-file"
+    "profile_picture": "image-url"
   }
 }
 ```
@@ -120,7 +120,7 @@
 
 **Headers** :
 
-- Authorization : token
+- Authorization : Bearer token
 
 **Response Body Success** :
 
@@ -152,7 +152,7 @@
 
 **Headers** :
 
-- Authorization : token
+- Authorization : Bearer token
 
 **Response Body Success** :
 
@@ -183,7 +183,7 @@
 
 **Headers** :
 
-- Authorization : token
+- Authorization : Bearer token
 
 **Response Body Success** :
 
