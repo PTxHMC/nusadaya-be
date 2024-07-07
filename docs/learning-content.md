@@ -133,7 +133,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
 
@@ -146,12 +146,6 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 ```json
 {
   "message": "Berhasil Mengambil Data",
-  "pagination": {
-    "total_items": 50,
-    "total_pages": 5,
-    "current_page": 1,
-    "limit": 10
-  },
   "data": [
     {
       "id": 1,
@@ -172,7 +166,13 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
       "created_at": "2024-09-21",
     },
     ...
-  ]
+  ],
+  "pagination": {
+    "total_items": 50,
+    "total_pages": 5,
+    "current_page": 1,
+    "limit": 10
+  },
 }
 ```
 
@@ -180,7 +180,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 
 ```json
 {
-  "errors": "Data tidak ditemukan"
+  "message": "Data tidak ditemukan"
 }
 ```
 
@@ -234,7 +234,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 
 ```json
 {
-  "errors": "data tidak ditemukan"
+  "message": "data tidak ditemukan"
 }
 ```
 
@@ -327,7 +327,7 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
 
@@ -351,6 +351,6 @@ isi `content` berupa bentuk JSON yang dimana terdapat key `section` nah untuk is
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
