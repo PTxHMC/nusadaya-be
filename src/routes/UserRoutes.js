@@ -33,5 +33,6 @@ router.patch(
   upload.single("profile_picture"),
   UserController.settingProfile
 );
+router.get("/:id", verifyToken, UserController.getUserById);
 
 export default router;

@@ -19,6 +19,7 @@ const refreshToken = async (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err) => {
       if (err) return res.send({ message: "Token Kedaluwarsa" }).status(403);
       const { id, username, email, role } = user[0];
+
       const accessToken = jwt.sign(
         { id, username, email, role },
         process.env.ACCESS_TOKEN_SECRET,
@@ -26,10 +27,11 @@ const refreshToken = async (req, res) => {
           expiresIn: "1h",
         }
       );
+
       res.json({
         message: "Refresh Token Berhasil",
         data: {
-          accessToken: accessToken,
+          access_token: accessToken,
         },
       });
     });

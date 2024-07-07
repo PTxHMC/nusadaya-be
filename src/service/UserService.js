@@ -11,28 +11,30 @@ import sendVerificationEmail from "../utils/SendMail.js";
 import sendResetPasswordMail from "../utils/ResetPassword.js";
 import uploads from "../middleware/UploadImage.js";
 
-const getUsers = async () => {
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      role: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
+const getUsers = async (page, limit) => {
+  const pageNumber = parseInt(page);
+  const limitNumber = parseInt(limit);
+  const skip = (pageNumber - 1) * limitNumber;
 
-  return users;
-};
+  const [totalItems, users] = await prisma.$transaction([
+    prisma.user.count(),
+    prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      skip: skip,
+      take: limitNumber,
+    }),
+  ]);
 
-const getUserById = async (id) => {
-  const userId = id;
-  return await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-  });
+  const totalPage = Math.ceil(totalItems / limitNumber);
+
+  return { totalPage, totalItems, pageNumber, limitNumber, users };
 };
 
 const getUserCount = async (data) => {
@@ -302,7 +304,6 @@ const getProfile = async (id) => {
 export default {
   getUsers,
   register,
-  getUserById,
   getUserCount,
   login,
   logout,
