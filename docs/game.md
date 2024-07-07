@@ -120,7 +120,7 @@
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
 
@@ -133,12 +133,6 @@
 ```json
 {
   "message": "Berhasil Mengambil Data",
-  "pagination": {
-    "total_items": 50,
-    "total_pages": 5,
-    "current_page": 1,
-    "limit": 10
-  },
   "data": [
     {
       "id": 1,
@@ -149,7 +143,13 @@
       "created_at": "2024-09-21",
     },
     ...
-  ]
+  ],
+  "pagination": {
+    "total_items": 50,
+    "total_pages": 5,
+    "current_page": 1,
+    "limit": 10
+  },
 }
 ```
 
@@ -157,7 +157,7 @@
 
 ```json
 {
-  "errors": "Data tidak ditemukan"
+  "message": "Data tidak ditemukan"
 }
 ```
 
@@ -214,7 +214,7 @@
 
 ```json
 {
-  "errors": "data tidak ditemukan"
+  "message": "data tidak ditemukan"
 }
 ```
 
@@ -287,7 +287,7 @@
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
 
@@ -311,7 +311,7 @@
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```
 
@@ -360,6 +360,6 @@
 
 ```json
 {
-  "errors": "Server Error"
+  "message": "Server Error"
 }
 ```

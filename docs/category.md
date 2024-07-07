@@ -32,7 +32,7 @@
 
 ```json
 {
-  "errors": "Kategori telah terdaftar"
+  "message": "Kategori telah terdaftar"
 }
 ```
 
@@ -68,7 +68,7 @@
 
 ```json
 {
-  "errors": "Kategori telah terdaftar"
+  "message": "Kategori telah terdaftar"
 }
 ```
 
@@ -98,7 +98,7 @@
 
 ```json
 {
-  "errors": "Kategori tidak tersedia"
+  "message": "Kategori tidak tersedia"
 }
 ```
 
@@ -122,6 +122,6 @@
 
 ```json
 {
-  "errors": "Unauthorized"
+  "message": "Unauthorized"
 }
 ```
