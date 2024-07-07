@@ -1,10 +1,40 @@
 import UserServices from "../service/UserService.js";
+import { createResponse, createPagination } from "../utils/CreateResponse.js";
 
 const getUsers = async (req, res) => {
   try {
-    const users = await UserServices.getUsers();
+    const { page = 1, limit = 10 } = req.query;
 
-    res.status(200).json(users);
+    const users = await UserServices.getUsers(page, limit);
+
+    const pagination = createPagination(
+      users.totalItems,
+      users.totalPage,
+      users.pageNumber,
+      users.limitNumber
+    );
+    const dataResponse = createResponse(
+      "Berhasil Mengambil data",
+      users.users,
+      pagination
+    );
+
+    res.status(200).json(dataResponse);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await UserServices.getProfile(userId);
+
+    const dataResponse = createResponse("Berhasil mengambil data", user);
+
+    res.status(200).json(dataResponse);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -16,10 +46,12 @@ const register = async (req, res) => {
   try {
     const user = await UserServices.register(req.body);
 
-    res.status(201).json({
-      message: "Registrasi Berhasil, silahkan cek email anda untuk verifikasi",
-      data: user,
-    });
+    const dataResponse = createResponse(
+      "Registrasi Berhasil, silahkan cek email anda untuk verifikasi",
+      user
+    );
+
+    res.status(201).json(dataResponse);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -36,12 +68,11 @@ const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({
-      message: "Login Berhasil",
-      data: {
-        access_token: user.accessToken,
-      },
+    const dataResponse = createResponse("Login Berhasil", {
+      access_token: user.accessToken,
     });
+
+    res.status(200).json(dataResponse);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -138,10 +169,9 @@ const settingProfile = async (req, res) => {
 
     const profile = await UserServices.settingProfile(userId, data, image_path);
 
-    res.status(200).json({
-      message: "Berhasil mengupdate profil",
-      data: profile,
-    });
+    const dataResponse = createResponse("Berhasil mengupdate profil", profile);
+
+    res.status(200).json(dataResponse);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -155,10 +185,9 @@ const getProfile = async (req, res) => {
 
     const profile = await UserServices.getProfile(userId);
 
-    res.status(200).json({
-      message: "Berhasil mengambil data",
-      data: profile,
-    });
+    const dataResponse = createResponse("Berhasil mengambil data", profile);
+
+    res.status(200).json(dataResponse);
   } catch (error) {
     res.status(400).json({
       message: error.message,
@@ -168,6 +197,7 @@ const getProfile = async (req, res) => {
 
 export default {
   getUsers,
+  getUserById,
   register,
   login,
   logout,
