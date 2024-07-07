@@ -1,20 +1,26 @@
 # Getting Started
 
-First, you should install the dependencies:
+- First, you should install the dependencies:
 
-```bash
-yarn install
-```
+    ```bash
+    yarn install
+    ```
 
-Rename `.env.development` to `.env` and then,
+- Rename `.env.development` to `.env` and then,
 
-Run the development server:
+- Run postgresql on your computer
 
-```bash
-yarn dev
-```
+- Run this commant on terminal:
 
-Open http://localhost:3000 to see the result
+    ```bash
+    npx prisma migrate reset
+    ```
+
+- Run the development server:
+
+    ```bash
+    yarn dev
+    ```
 
 ## API Specification
 

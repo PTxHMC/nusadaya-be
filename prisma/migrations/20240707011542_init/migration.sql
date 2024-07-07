@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'TEACHER', 'ADMIN');
 
+-- CreateEnum
+CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'UNKNOWN');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -19,6 +22,9 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "Profile" (
     "id" SERIAL NOT NULL,
+    "full_name" VARCHAR(255),
+    "gender" "Gender" NOT NULL DEFAULT 'UNKNOWN',
+    "profile_picture" TEXT,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
