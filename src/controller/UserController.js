@@ -1,5 +1,5 @@
 import UserServices from "../service/UserService.js";
-import { createResponse, createPagination } from "../utils/CreateResponse.js";
+import { createResponse, createPaginationResponse } from "../utils/CreateResponse.js";
 
 const getUsers = async (req, res) => {
   try {
@@ -7,7 +7,7 @@ const getUsers = async (req, res) => {
 
     const users = await UserServices.getUsers(page, limit);
 
-    const pagination = createPagination(
+    const pagination = createPaginationResponse(
       users.totalItems,
       users.totalPage,
       users.pageNumber,
