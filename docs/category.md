@@ -38,7 +38,7 @@
 
 ## Update Category API
 
-**Endpoint** : PUT `/api/category`
+**Endpoint** : PUT `/api/category/{id}`
 
 **Headers** :
 
@@ -104,7 +104,7 @@
 
 ## Delete Category
 
-**Endpoint** : DELETE /api/category/{id}
+**Endpoint** : DELETE `/api/category/{id}`
 
 **Headers** :
 

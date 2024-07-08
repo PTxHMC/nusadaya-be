@@ -11,7 +11,12 @@ const createResponse = (message, data, pagination = null) => {
   return response;
 };
 
-const createPagination = (totalItems, totalPages, currentPage, limit) => {
+const createPaginationResponse = (
+  totalItems,
+  totalPages,
+  currentPage,
+  limit
+) => {
   return {
     total_items: totalItems,
     total_pages: totalPages,
@@ -20,4 +25,4 @@ const createPagination = (totalItems, totalPages, currentPage, limit) => {
   };
 };
 
-export { createResponse, createPagination };
+export { createResponse, createPaginationResponse };
