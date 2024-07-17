@@ -34,6 +34,38 @@ const getLearningContents = async (req, res) => {
   }
 };
 
+const getMyLearningContents = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const id = req.id
+
+    const learningContent = await LearningContentService.getMyLearningContents(
+      page,
+      limit,
+      id
+    );
+
+    const pagination = createPaginationResponse(
+      learningContent.totalItems,
+      learningContent.totalPage,
+      learningContent.pageNumber,
+      learningContent.limitNumber
+    );
+
+    const responseData = createResponse(
+      "Data berhasil ditemukan",
+      learningContent.result,
+      pagination
+    );
+
+    res.status(200).json(responseData);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
 const getLearningContentById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -127,6 +159,7 @@ const deleteLearningContent = async (req, res) => {
 export default {
   createLearningContent,
   getLearningContents,
+  getMyLearningContents,
   getLearningContentById,
   updateLearningContent,
   deleteLearningContent,

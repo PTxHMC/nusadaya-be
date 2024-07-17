@@ -38,6 +38,39 @@ const getLearningContents = async (page, limit) => {
   return { totalPage, totalItems, pageNumber, limitNumber, result };
 };
 
+const getMyLearningContents = async (page, limit, userId) => {
+  const pageNumber = parseInt(page);
+  const limitNumber = parseInt(limit);
+  const skip = (pageNumber - 1) * limitNumber;
+
+  const [totalItems, contents] = await prisma.$transaction([
+    prisma.learning_Content.count({ where: { userId } }),
+    prisma.learning_Content.findMany({
+      where: { userId },
+      include: {
+        learning_content_categories: { include: { category: true } },
+        user: true,
+      },
+      skip: skip,
+      take: limitNumber,
+    }),
+  ]);
+
+  const result = contents.map((content) => ({
+    id: content.id,
+    title: content.title,
+    thumbnail: content.thumbnail,
+    user: content.user.username,
+    categories: content.learning_content_categories.map(
+      (listCategory) => listCategory.category.name
+    ),
+  }));
+
+  const totalPage = Math.ceil(totalItems / limitNumber);
+
+  return { totalPage, totalItems, pageNumber, limitNumber, result };
+};
+
 const getLearningContentById = async (id) => {
   const idContent = parseInt(id);
 
@@ -117,6 +150,7 @@ const updateLearningContent = async (userId, contentId, data, image_path) => {
   const existContent = await prisma.learning_Content.findFirst({
     where: {
       id: idNumber,
+      userId,
     },
   });
 
@@ -130,6 +164,10 @@ const updateLearningContent = async (userId, contentId, data, image_path) => {
     ? await uploads(image_path, "nusadaya-media")
     : null;
 
+  await prisma.learning_Content_Categories.deleteMany({
+    where: { learning_content_id: idNumber },
+  });
+
   const learningContent = await prisma.learning_Content.update({
     where: {
       id: idNumber,
@@ -138,7 +176,6 @@ const updateLearningContent = async (userId, contentId, data, image_path) => {
       title: newData.title,
       content: newData.content,
       thumbnail,
-      userId,
       learning_content_categories: {
         create: categories.map((categoryId) => ({
           category: {
@@ -184,7 +221,7 @@ const deleteLearningContent = async (contentId, userId) => {
   await prisma.learning_Content.delete({
     where: {
       id: idNumber,
-    }
+    },
   });
 
   return "OK";
@@ -193,6 +230,7 @@ const deleteLearningContent = async (contentId, userId) => {
 export default {
   createLearningContent,
   getLearningContents,
+  getMyLearningContents,
   getLearningContentById,
   updateLearningContent,
   deleteLearningContent,
