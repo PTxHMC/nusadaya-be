@@ -26,16 +26,18 @@ enum Gender {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique @db.VarChar(254)
-  username      String   @db.VarChar(30)
-  password      String   @db.VarChar(255)
-  refresh_token String?
-  role          Role     @default(USER)
-  is_verified   Boolean  @default(false)
-  profile       Profile?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id               String             @id @default(uuid())
+  email            String             @unique @db.VarChar(254)
+  username         String             @db.VarChar(30)
+  password         String             @db.VarChar(255)
+  refresh_token    String?
+  role             Role               @default(USER)
+  is_verified      Boolean            @default(false)
+  profile          Profile?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  Game             Game[]
+  Learning_Content Learning_Content[]
 
   @@map("users")
 }
@@ -47,11 +49,67 @@ model Profile {
   gender          Gender  @default(UNKNOWN)
   profile_picture String?
   userId          String  @unique
+
+  @@map("profiles")
 }
 
 model Category {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(30)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                          Int                           @id @default(autoincrement())
+  name                        String                        @db.VarChar(30)
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
+  learning_content_categories Learning_Content_Categories[]
+
+  @@map("categories")
+}
+
+model Learning_Content_Categories {
+  learning_content    Learning_Content @relation(fields: [learning_content_id], references: [id], onDelete: Cascade)
+  learning_content_id Int
+  category            Category         @relation(fields: [category_id], references: [id])
+  category_id         Int
+
+  @@id([learning_content_id, category_id])
+  @@map("category_to_learning_content")
+}
+
+model Learning_Content {
+  id                          Int                           @id @default(autoincrement())
+  title                       String                        @db.VarChar(255)
+  content                     String
+  thumbnail                   String?
+  userId                      String
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
+  learning_content_categories Learning_Content_Categories[]
+  user                        User                          @relation(fields: [userId], references: [id])
+
+  @@map("learning_contents")
+}
+
+model Game {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(255)
+  content     Json
+  userId      String
+  type        Int
+  description String?
+  thumbnail   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  game_type   Game_Type @relation(fields: [type], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@map("games")
+}
+
+model Game_Type {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(30)
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Game        Game[]
+
+  @@map("game_type")
 }

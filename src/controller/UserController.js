@@ -1,5 +1,8 @@
 import UserServices from "../service/UserService.js";
-import { createResponse, createPaginationResponse } from "../utils/CreateResponse.js";
+import {
+  createResponse,
+  createPaginationResponse,
+} from "../utils/CreateResponse.js";
 
 const getUsers = async (req, res) => {
   try {
@@ -165,9 +168,9 @@ const settingProfile = async (req, res) => {
   try {
     const userId = req.id;
     const data = req.body;
-    const image_path = req.file.path;
+    // const image_path = req.file.path;
 
-    const profile = await UserServices.settingProfile(userId, data, image_path);
+    const profile = await UserServices.settingProfile(userId, data);
 
     const dataResponse = createResponse("Berhasil mengupdate profil", profile);
 
