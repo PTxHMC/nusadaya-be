@@ -6,7 +6,7 @@ const refreshToken = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken)
-      return res.send({ message: "Akses Tidak Sah" }).status(401);
+      return res.status(401).send({ message: "Akses Tidak Sah" });
 
     const user = await prisma.user.findMany({
       where: {
@@ -14,17 +14,17 @@ const refreshToken = async (req, res) => {
       },
     });
 
-    if (!user[0]) return res.send({ message: "Token Kedaluwarsa" }).status(403);
+    if (!user[0]) return res.status(403).send({ message: "Token Kedaluwarsa" });
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err) => {
-      if (err) return res.send({ message: "Token Kedaluwarsa" }).status(403);
+      if (err) return res.status(403).send({ message: "Token Kedaluwarsa" });
       const { id, username, email, role } = user[0];
 
       const accessToken = jwt.sign(
         { id, username, email, role },
         process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn: "1h",
+          expiresIn: "15s",
         }
       );
 

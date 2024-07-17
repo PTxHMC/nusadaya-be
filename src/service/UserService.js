@@ -71,14 +71,6 @@ const register = async (data) => {
     },
   });
 
-  const { email } = user;
-
-  const verifyToken = jwt.sign({ email }, process.env.VERIFY_TOKEN_SECRET, {
-    expiresIn: "1h",
-  });
-
-  await sendVerificationEmail(email, verifyToken);
-
   return user;
 };
 
