@@ -44,6 +44,7 @@ const getLearningContents = async (page, limit, search) => {
     categories: content.learning_content_categories.map(
       (listCategory) => listCategory.category.name
     ),
+    created_at: content.createdAt,
   }));
 
   const totalPage = Math.ceil(totalItems / limitNumber);
@@ -77,6 +78,7 @@ const getMyLearningContents = async (page, limit, userId) => {
     categories: content.learning_content_categories.map(
       (listCategory) => listCategory.category.name
     ),
+    created_at: content.createdAt,
   }));
 
   const totalPage = Math.ceil(totalItems / limitNumber);
