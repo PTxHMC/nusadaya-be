@@ -6,11 +6,12 @@ import {
 
 const getLearningContents = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, search = "" } = req.query;
 
     const learningContent = await LearningContentService.getLearningContents(
       page,
-      limit
+      limit,
+      search
     );
 
     const pagination = createPaginationResponse(

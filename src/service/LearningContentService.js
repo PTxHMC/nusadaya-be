@@ -6,14 +6,27 @@ import {
 } from "../validation/LearningContentValidation.js";
 import validate from "../validation/validation.js";
 
-const getLearningContents = async (page, limit) => {
+const getLearningContents = async (page, limit, search) => {
   const pageNumber = parseInt(page);
   const limitNumber = parseInt(limit);
   const skip = (pageNumber - 1) * limitNumber;
 
   const [totalItems, contents] = await prisma.$transaction([
-    prisma.learning_Content.count(),
+    prisma.learning_Content.count({
+      where: {
+        title: {
+          contains: search,
+          mode: "insensitive"
+        }
+      }
+    }),
     prisma.learning_Content.findMany({
+      where: {
+        title: {
+          contains: search,
+          mode: "insensitive"
+        }
+      },
       include: {
         learning_content_categories: { include: { category: true } },
         user: true,
