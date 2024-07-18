@@ -16,16 +16,16 @@ const getLearningContents = async (page, limit, search) => {
       where: {
         title: {
           contains: search,
-          mode: "insensitive"
-        }
-      }
+          mode: "insensitive",
+        },
+      },
     }),
     prisma.learning_Content.findMany({
       where: {
         title: {
           contains: search,
-          mode: "insensitive"
-        }
+          mode: "insensitive",
+        },
       },
       include: {
         learning_content_categories: { include: { category: true } },
@@ -108,6 +108,7 @@ const getLearningContentById = async (id) => {
     categories: learningContent.learning_content_categories.map(
       (listCategory) => listCategory.category.name
     ),
+    created_at: learningContent.createdAt,
   };
 
   return result;
@@ -181,22 +182,28 @@ const updateLearningContent = async (userId, contentId, data, image_path) => {
     where: { learning_content_id: idNumber },
   });
 
+  const updateData = {
+    title: newData.title,
+    content: newData.content,
+    learning_content_categories: {
+      create: categories.map((categoryId) => ({
+        category: {
+          connect: { id: categoryId },
+        },
+      })),
+    },
+  };
+
+  // Hanya tambahkan thumbnail jika ada nilainya
+  if (thumbnail) {
+    updateData.thumbnail = thumbnail;
+  }
+
   const learningContent = await prisma.learning_Content.update({
     where: {
       id: idNumber,
     },
-    data: {
-      title: newData.title,
-      content: newData.content,
-      thumbnail,
-      learning_content_categories: {
-        create: categories.map((categoryId) => ({
-          category: {
-            connect: { id: categoryId },
-          },
-        })),
-      },
-    },
+    data: updateData,
     include: {
       learning_content_categories: { include: { category: true } },
       user: true,

@@ -9,6 +9,7 @@ const main = async () => {
     { name: "Warisan Budaya" },
     { name: "Pakaian" },
     { name: "Permainan" },
+    { name: "Sejarah" },
   ];
 
   await prisma.category.createMany({
