@@ -5,9 +5,10 @@ import CategoryController from "../controller/CategoryController.js";
 
 const router = express.Router();
 
+router.get("/", CategoryController.getCategories);
+
 router.use(verifyToken, roleAccess(["ADMIN"]));
 
-router.get("/", CategoryController.getCategories);
 router.post("/", CategoryController.createCategory);
 router.put("/:id", CategoryController.updateCategory);
 router.delete("/:id", CategoryController.deleteCategory);
