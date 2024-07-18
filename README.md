@@ -15,7 +15,11 @@
     ```bash
     npx prisma migrate reset
     ```
+- Run this commant on terminal:
 
+    ```bash
+    node prisma/CategorySeeder.js
+    ```
 - Run the development server:
 
     ```bash
