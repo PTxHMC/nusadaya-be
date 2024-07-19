@@ -97,7 +97,7 @@ CREATE UNIQUE INDEX "profiles_userId_key" ON "profiles"("userId");
 ALTER TABLE "profiles" ADD CONSTRAINT "profiles_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "category_to_learning_content" ADD CONSTRAINT "category_to_learning_content_learning_content_id_fkey" FOREIGN KEY ("learning_content_id") REFERENCES "learning_contents"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "category_to_learning_content" ADD CONSTRAINT "category_to_learning_content_learning_content_id_fkey" FOREIGN KEY ("learning_content_id") REFERENCES "learning_contents"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "category_to_learning_content" ADD CONSTRAINT "category_to_learning_content_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

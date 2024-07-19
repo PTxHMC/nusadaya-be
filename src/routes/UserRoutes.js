@@ -10,7 +10,7 @@ const router = express.Router();
 router.get(
   "/",
   verifyToken,
-  roleAccess(["USER","TEACHER"]),
+  roleAccess(["USER", "TEACHER", "ADMIN"]),
   UserController.getUsers
 );
 
