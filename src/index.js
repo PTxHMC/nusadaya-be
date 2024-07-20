@@ -14,7 +14,9 @@ const PORT = process.env.PORT;
 
 const allowedOrigins = [
   "http://localhost:3000",
+  "https://nusadaya-be.vercel.app",
   "https://api-nusadaya.vercel.app",
+  "https://nusadaya-fe.vercel.app",
   "https://nusadaya-fe-two.vercel.app",
 ];
 
