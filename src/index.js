@@ -12,7 +12,21 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors({ credentials: true, origin: "https://nusadaya-fe.vercel.app/" }));
+const allowedOrigins = ['http://localhost:3000', 'https://api-nusadaya.vercel.app'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
