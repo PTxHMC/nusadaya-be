@@ -12,17 +12,21 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-const allowedOrigins = ['http://localhost:3000', 'https://api-nusadaya.vercel.app'];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://api-nusadaya.vercel.app",
+  "https://nusadaya-fe-two.vercel.app",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
