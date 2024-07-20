@@ -91,7 +91,7 @@ const createLearningContent = async (req, res) => {
   try {
     const userId = req.id;
     const data = req.body;
-    const image_path = req.file ? req.file.path : null;
+    let image_path = req.file ? req.file.path : null;
 
     const learningContent = await LearningContentService.createLearningContent(
       userId,
